@@ -97,7 +97,7 @@
     },
     data () {
       return {
-        data: data.list,
+        data: [],
         qIndex: 0,
         activeIndex: -1,
         rightIndex: -1,
@@ -123,6 +123,11 @@
       }
     },
     mounted () {
+      this.$http.get('https://cdn.resources.cdstm.cn/data.json').then(response => {
+        this.data = response.data.list;
+      }, response => {
+        console.log('get data failed.');
+      });
       for (var i = 0; i < this.data.length; i++) {
         this.collectionList.push(false);
         this.allQuestionState.push({id: i, state: 1});// state 1:未做   2:对    3:错
